@@ -3,6 +3,6 @@ const mongoose = require ('mongoose');
 const Schema = mongoose.Schema;
 
 const personSchema = new Schema ( {
-    personName: {type: String}
+    name: {type: String}
 });
 module.exports = mongoose.model('Person', personSchema);

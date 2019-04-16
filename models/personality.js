@@ -1,22 +1,15 @@
 const mongoose = require ('mongoose');
 
 const childSchema = new mongoose.Schema({
-    trait_id: String,
     name: String,
-    category: String,
-    percentile: Number,
-    raw_score: Number,
-    significant: Boolean
+    raw_score: Number
 })
 
 const personality = new mongoose.Schema({
-    trait_id: String,
     name: String,
-    category: String,
-    percentile: Number,
     raw_score: Number,
-    significant: Boolean,
-    children:[childSchema]
+    children:[childSchema],
+    needs:[childSchema]
 })
 
 
