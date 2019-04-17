@@ -25,7 +25,7 @@ const signupLimiter = new RateLimit({
   message: "Maximum accounts created. Please try again later."
 })
 
-mongoose.connect('mongodb://localhost/jwt', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
 const db = mongoose.connection;
 db.on('open', () => {
   console.log(`Connected to Mongo on ${db.host}:${db.port}`);
@@ -41,6 +41,8 @@ app.use('/auth', require('./routes/auth'))
 app.use('/locked', 
         expressJWT({secret: process.env.JWT_SECRET}).unless({method: 'POST'}), 
         require('./routes/locked'));
+        
+app.use('/api', require('./routes/api'));
 
 app.listen(process.env.PORT, () => {
   console.log(`You're listening to the sweet sounds of port ${process.env.PORT} in the morning`)

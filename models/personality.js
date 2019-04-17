@@ -5,7 +5,7 @@ const childSchema = new mongoose.Schema({
     raw_score: Number
 })
 
-const personality = new mongoose.Schema({
+const personalitySchema = new mongoose.Schema({
     name: String,
     raw_score: Number,
     children:[childSchema],
@@ -13,4 +13,4 @@ const personality = new mongoose.Schema({
 })
 
 
-module.exports = mongoose.model('Personality', personality.Schema);
+module.exports = mongoose.model('Personality', personalitySchema);
