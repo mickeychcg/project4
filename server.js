@@ -1,9 +1,11 @@
 require ('dotenv').config();
+// const watson = require('ibm-watson');
 const express = require('express');
 const mongoose = require('mongoose');
 const expressJWT = require('express-jwt');
 const RateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+// const watson = require('watson-developer-cloud');
 
 const app = express();
 
@@ -43,6 +45,15 @@ app.use('/locked',
         require('./routes/locked'));
         
 app.use('/api', require('./routes/api'));
+
+// call the Personanality Insights API
+const PersonalityInsightsV3 = require('ibm-watson/personality-insights/v3');
+
+const personalityInsights = new PersonalityInsightsV3({
+  version: '2017-10-13',
+  iam_apikey: process.env.IAM_APIKEY,
+  url: "https://gateway.watsonplatform.net/personality-insights/api"
+});
 
 app.listen(process.env.PORT, () => {
   console.log(`You're listening to the sweet sounds of port ${process.env.PORT} in the morning`)

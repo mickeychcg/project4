@@ -93,7 +93,7 @@ class App extends Component {
       contents = (
         <>
           <UserProfile user={user} logout={this.logout} />
-          <p><a onClick={this.handleClick}>Test the protected route...</a></p>
+          {/* <p><a onClick={this.handleClick}>Test the protected route...</a></p> */}
           <p>{this.state.lockedResult}</p>
         </>
       )
@@ -107,7 +107,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-        <header><h1>Welcome to my Site!</h1></header>
+        <header><h1>Welcome to Judge-O-Matic!</h1></header>
         <div className="content-box">
         {contents}
         </div>
@@ -115,5 +115,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

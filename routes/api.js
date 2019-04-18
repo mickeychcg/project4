@@ -1,9 +1,23 @@
+const PersonalityInsightsV3 = require('ibm-watson/personality-insights/v3');
+// const watson = require('ibm-watson');
 const express = require('express');
 const router = express.Router();
 const Person = require('../models/person');
 const Personality = require('../models/personality');
 const Quote = require('../models/quote');
 const User = require('../models/user');
+require ('dotenv').config();
+
+const personalityInsights = new PersonalityInsightsV3({
+  version: '2017-10-13',
+  iam_apikey:process.env.IAM_APIKEY,
+  url: "https://gateway.watsonplatform.net/personality-insights/api",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  }
+});
+
 
 // GET /persons - Get all persons
 router.get('/persons', (req, res) => {
@@ -91,9 +105,61 @@ router.post('/persons/:pid/quotes', (req, res) => {
     });
     quote.save((err, doc) => {
       person.quotes.push(quote)
-      person.save((err,doc) => res.json(doc))
+      person.save((err,doc) => {
+        let catQuote = {
+          
+        }
+        //watson logic
+        if(person.quotes.length > 0 ) {
+          let profileParams = {
+            content: (catQuote),
+            content_type:  'application/json',
+          }
+          personalityInsights.profile(profileParams, (profile)=>{
+            console.log(profile)
+          })
+        //   .then(profile => {
+        //     // console.log(JSON.stringify(profile, null, 2));
+        //     console.log(profile)
+        //     res.json(profile)
+        //   })
+        //   .catch(function(error) {
+        //     console.log('Error getting the posts');
+        //   console.log(profileParams)
+        // });
+        };
+        
+        
+        res.status(201).json({quotes: catQuote}); // send back watson stuff instead of catquote
+      });
+    });
+    Quote.find({}, (err, quotes) => {
+      let personalityInsights = new PersonalityInsightsV3 ({
+        version: '2017-10-13',
+        iam_apikey: process.env.IAM_APIKEY,
+        url: "https://gateway.watsonplatform.net/personality-insights/api"
+      })
+    // console.log();
+      // let catQuote = '';
+      // for(i = 0; i >= 1; i++) {
+      //   catQuote += Quote + i + ", ";
+      // }
+      // console.log("This is a quote", catQuote);
+
+
+
     });
   });
-});   
+});  
 
-module.exports = router;
+  module.exports = router;
+  // get the quote from the db
+  // if the quote is the first quote for this person
+  // POST the quote to the Personality API
+  // if this is not the first quote
+  // query the db for all quotes for that person
+  // concatenate the quotes  
+  // POST the quotes to the Personality API   
+  // wait for a response from the API
+  // receive the JSON response from the API
+  // save the JSON to the db?????
