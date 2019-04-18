@@ -4,6 +4,7 @@ import Signup from './Signup';
 import Login from './Login';
 import UserProfile from './UserProfile';
 import axios from 'axios';
+import Persons from './Components/Persons';
 
 class App extends Component {
   constructor(props) {
@@ -56,8 +57,7 @@ class App extends Component {
 
   }
   
-  // componentDidMount() {
-  // }
+ 
   liftTokenToState({token, user}) {
     this.setState({
       token,
@@ -97,6 +97,7 @@ class App extends Component {
       contents = (
         <>
           <UserProfile user={user} logout={this.logout} />
+          <Persons user={user} />
           {/* <p><a onClick={this.handleClick}>Test the protected route...</a></p> */}
           <p>{this.state.lockedResult}</p>
         </>
