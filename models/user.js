@@ -21,7 +21,8 @@ const userSchema = new Schema({
     required: [true, 'You must enter an email'],
     minlength: [5, 'Email must be between 5 and 99 characters'],
     maxlength: [99, 'Email must be between 5 and 99 characters']
-  }
+  },
+  persons: [{type: Schema.Types.ObjectId, ref: 'Person'}]
 });
 
 // This returns an object without a password
@@ -30,14 +31,14 @@ userSchema.set('toObject', {
     let returnJson = {
       _id: ret._id,
       email: ret.email,
-      name: ret.name
+      name: ret.name,
+      persons: ret.persons
     }
     return returnJson;
   }
 });
 
 userSchema.methods.authenticated = function(password) {
-  console.log("comparing passwords:", password, this.password);
     return bcrypt.compareSync(password, this.password);
 }
 
