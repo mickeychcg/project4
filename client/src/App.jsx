@@ -12,7 +12,8 @@ class App extends Component {
       token: '',
       user: null,
       errorMessage: '',
-      lockedResult: ''
+      lockedResult: '',
+      persons: []
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
@@ -49,11 +50,14 @@ class App extends Component {
         })
     }
   }
-
+  
   componentDidMount() {
     this.checkForLocalToken()
-  }
 
+  }
+  
+  // componentDidMount() {
+  // }
   liftTokenToState({token, user}) {
     this.setState({
       token,
