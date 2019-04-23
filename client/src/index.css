@@ -12,3 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+.personsList {
+    border: 1px green solid;
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: rgba(153, 139, 89, 1);
+    display: grid;
+}
