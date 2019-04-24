@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
 import './App.css';
-import Signup from './Signup';
-import Login from './Login';
-import UserProfile from './UserProfile';
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
+/* Components -------------------------------------------- */
+import Signup from './Components/Signup';
+import Login from './Components/Login';
+import PersonForm from './Components/PersonForm';
+import Header from './Components/Header';
+import QuoteForm from './Components/QuoteForm';
+
+/* Pages -------------------------------------------- */
+import Persons from './Pages/Persons';
+import UserProfile from './Pages/UserProfile';
+import Landing from './Pages/Landing';
+import Quotes from './Pages/Quotes';
+import PersonContainer from './Pages/PersonContainer';
+
+/* Third-party -------------------------------------------- */
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  } from '@fortawesome/free-solid-svg-icons';
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
-// import PersonsShow from './Components/PersonsShow';
-// import Analysis from './Components/Analysis';
-import Persons from './Components/Persons';
-// import { set } from 'mongoose';
 
 class App extends Component {
   constructor(props) {
@@ -26,8 +38,9 @@ class App extends Component {
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
     this.logout = this.logout.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.addNewPerson = this.addNewPerson.bind(this)
+    this.addPerson = this.addPerson.bind(this)
     // this.addQuote = this.addQuote.bind(this)
+    this.getPersons = this.getPersons.bind(this)
   }
 
   checkForLocalToken() {
@@ -61,18 +74,26 @@ class App extends Component {
   }
   
   getPersons = () => {
-    axios.get(`/api/persons`)
-    .then(res => {
-      this.setState({
-        persons: res.data
+    if (this.state.user) {
+      axios.get(`/api/user/${this.state.user._id}/persons`)
+      .then(res => {
+        this.setState({
+          persons: res.data
+        })
       })
-    })
+    } else {
+      this.setState({
+        persons: []
+      })
+    }
   }
+  
   
   componentDidMount() {
     this.checkForLocalToken()
     this.getPersons()
   }
+
   liftTokenToState({token, user}) {
     this.setState({
       token,
@@ -106,21 +127,29 @@ class App extends Component {
     })
   }
 
-  handleNewPersonClick(person) {
-    this.setState({
-      person: person
-    })
-  }
-  addNewPerson(e) {
+  addPerson(e) {
     e.persist()
     e.preventDefault()
-    let user = this.props.user
-    let person = this.state.user._id
-    axios.post(`/api/user/${person}/persons`, {
-      name: e.target.name
+    let userId = this.state.user._id
+    axios.post(`/api/user/${userId}/persons`, {
+      name: e.target.name.value
     }).then(res => {
-      axios.get(`/api/user/${user._id}/persons`).then(res => {
+      axios.get(`/api/user/${userId}/persons`).then(res => {
         this.setState({persons: res.data})
+      })
+    })
+  }
+
+  addQuote(e) {
+    e.persist()
+    e.preventDefault()
+    let userId = this.state.user._id
+    let personId = this.state.person._id
+    axios.post(`/api/user/${userId}/persons/${personId}/quotes`, {
+      name: e.target.name.value
+    }).then(res => {
+      axios.get(`/api/user/${userId}/persons/${personId}/quotes`).then(res => {
+        this.setState({quotes: res.data})
       })
     })
   }
@@ -130,32 +159,55 @@ class App extends Component {
     let contents;
     if (user) {
       contents = (
-        <Router>
-        <Route exact path='/' render= {() => <Redirect to='/persons' /> } />
-        <Route exact path='/' render={() => <Persons persons={this.state.persons} user={this.state.user} logout={this.logout} />}/>
-        <Route path="/persons/:pid" render={(props) => <Persons person={this.state.persons} addItem={this.addItem} user={user} logout={this.logout} {...props} />}/>
-        <UserProfile user={user} logout={this.logout} />
-        <Persons user={user} persons={this.state.persons} addItem={this.addItem} user={user} logout={this.logout} />
-          {/* <p><a onClick={this.handleClick}>Test the protected route...</a></p> */}
-          {/* <p>{this.state.lockedResult}</p> */}
-        </Router>
+        <div>
+          <Header />
+            <Switch>
+            {this.state.token && (
+              <Redirect from='/' to='/landing' exact />
+              )}
+              <Route exact path='/landing' component={Landing} />
+              <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} addPerson={this.addPerson} /> } />
+              {/* <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
+              <Route exact path='/persons/' render={() => ( <PersonForm addPerson={this.addPerson} /> )} /> */}
+            {/* <Route exact path='/persons' component={Persons} /> */}
+            {/* <Persons persons={this.state.persons} user={this.state.user} logout={this.logout} /> */}
+            {/* <PersonForm addPerson={this.addPerson} /> */}
+            {/* <Route path="/persons/:pid" render={(props) => <Persons person={this.state.persons} addItem={this.addItem} user={user} logout={this.logout} {...props} />}/> */}
+            {/* <Route exact path='/' render={() => <AddPerson />}/> */}
+            {/* <UserProfile user={user} logout={this.logout} /> */}s
+            {/* <Persons judgees={this.state.persons} getPersons={this.getPersons} /> */}
+              {/* <p><a onClick={this.handleClick}>Test the protected route...</a></p> */}
+              {/* <p>{this.state.lockedResult}</p> */}
+              {/* {this.state.token && (
+              <Route path='/profile' component={UserProfile} />
+              )}
+              {!this.state.token && <Redirect to='/' exact />} */}
+
+            </Switch>
+        </div>
       )
-      console.log("HERE IS USER!", this.state.user);
-      console.log("HERE IS PERSON!", this.state.persons);
+      // console.log("THIS IS ADDPERSON", this.state.addPerson);
+      // console.log("HERE IS USER!", this.state.user);
+      // console.log("HERE IS PERSON!", this.state.persons);
     } else {
       contents = (
-      <>
-        <Signup liftToken={this.liftTokenToState} />
-        <Login liftToken={this.liftTokenToState} />
-      </>
+        <div>
+          <Header />
+          <div className="auth">
+            <Login liftToken={this.liftTokenToState} />
+            <Signup liftToken={this.liftTokenToState} />
+          
+          </div>
+        </div>
       )
     }
     return (
       <div className="App">
-        <header><h1>Welcome to Judge-O-Matic!</h1></header>
-        <div className="content-box">
+        {/* <header><h1>Welcome to Judge-O-Matic!</h1></header> */}
+          {/* <div className="content-box"> */}
         {contents}
-        </div>
+          {/* </div> */}
+      
       </div>
     )
   }

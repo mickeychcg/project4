@@ -46,15 +46,15 @@ router.get('user/:id/persons/:pid', (req, res) => {
 
 
 // GET /persons - Get all persons
-router.get('/persons', (req, res) => {
-  Person.find({}, (err, persons ) => {
-    if (!err) {
-      res.status(200).json(persons);
-    } else {
-      res.status(500).json(persons);
-    }
-  })
-})
+// router.get('/persons', (req, res) => {
+//   Person.find({}, (err, persons ) => {
+//     if (!err) {
+//       res.status(200).json(persons);
+//     } else {
+//       res.status(500).json(persons);
+//     }
+//   })
+// })
 
 // GET /persons/:id - Get one person
 router.get('/persons/:pid', (req, res) => {
@@ -97,13 +97,13 @@ router.get('/user/:id/persons/:pid/quotes/:qid', (req, res) => {
   })
 })
 // GET /persons/:pid/quotes - all person quotes
-router.get('/persons/:pid/quotes', (req, res) => {
-  Person.findById(req.params.pid).populate('quotes').exec((err, person) => {
-    if (!err) {
-      res.json(person);
-    }
-  })
-})
+// router.get('/persons/:pid/quotes', (req, res) => {
+//   Person.findById(req.params.pid).populate('quotes').exec((err, person) => {
+//     if (!err) {
+//       res.json(person);
+//     }
+//   })
+// })
 
 // DEL /persons/:id - deletes a person
 router.delete('/persons/:id', (req, res) => {

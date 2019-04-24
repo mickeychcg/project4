@@ -1,0 +1,160 @@
+/*
+COLORS
+#ffd508
+#00FF48
+#1e0d00
+#FF7400
+#213918
+#ff041c
+*/
+
+/* Landing Page ----------------------------------------- */
+.LandingPage .brand-statement {
+  height: 45vh;
+  background-image: url('/images/client/public/images/comicCourt.png');
+  background-color: #8f3c875f;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: auto 100%;
+  background-blend-mode: multiply;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 6vh;
+}
+
+.LandingPage .brand-statement h2 {
+  margin: 0;
+  font-size: 6rem;
+  font-weight: 300;
+  color: #ffffff;
+  mix-blend-mode: hard-light;
+}
+
+.LandingPage .brand-statement h3 {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin: 15px 0 0;
+}
+
+/* Profile Page ----------------------------------------- */
+.UserProfile section {
+  /* background-image: linear-gradient(135deg, #131fa4a1, #913d88a1),
+    url('../images/what-the-hex.png'); */
+  background-blend-mode: multiply;
+  height: 52vh;
+  padding: 4vh 0;
+}
+
+.UserProfile .profile-img {
+  width: 275px;
+  height: 275px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.UserProfile .logout-btn {
+  width: 70%;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  border: 0;
+  background-image: linear-gradient(155deg, #131fa4, #913d88);
+  color: #ffffff;
+  letter-spacing: 1px;
+  padding: 12px 0;
+  margin: 5vh 0;
+}
+
+/* Person Page && Quote Page ----------------------------------------- */
+.Persons,
+.Quotes {
+  height: 82vh;
+  overflow: hidden;
+}
+
+.Persons header,
+.Quotes header {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px 0;
+  background-color: #dddddd;
+}
+
+.Persons header input,
+.Quotes header input {
+  width: 70%;
+  height: 32px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+.Persons header button,
+.Quotes header button {
+  height: 32px;
+  width: 30%;
+  border: 0;
+  border-radius: 0 5px 5px 0;
+  background-image: linear-gradient(155deg, #131fa4, #913d88);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.Persons .events-filters,
+.Quotes .artists-filters {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 15px 20px 0;
+  background-color: #dddddd;
+  border-bottom: #dddddd;
+}
+
+.Persons .events-filters .filter,
+.Quotes .artists-filters .filter {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  background-color: #ffffff;
+
+  border: 1px solid #dddddd;
+  border-radius: 7px 7px 0 0;
+  padding-top: 7px;
+}
+
+.Persons .events-filters .filter.active,
+.Quotes .artists-filters .filter.active {
+  border-top: 7px solid #5f3193;
+  border-bottom: 0;
+  padding-top: 0;
+}
+
+.Persons .events-count,
+.Quotes .artists-count {
+  display: inline-block;
+  background-color: #dddddd;
+  border-radius: 20%;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.Persons .events-collection,
+.Quotes .artists-collection {
+  background-color: #ffffff;
+  padding: 10px 20px 0;
+  height: 84%;
+  overflow-y: scroll;
+}

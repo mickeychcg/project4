@@ -1,11 +1,27 @@
+@import url('./Styles/Components.css');
+@import url('./Styles/Pages.css');
+
+/* Colors
+#ffd508
+#00FF48
+#1e0d00
+#FF7400
+#213918
+#ff041c
+*/
+
 .App {
   text-align: center;
-}
+  /* max-width: 1920px; */
+  width: 100%;
+  margin: 0, auto;
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Martel', serif;
+  background-color: #dddddd;
+
 }
 
 .App-header {
@@ -19,15 +35,16 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.Content {
+  display: block;
+  height: 82vh;
+  overflow-y: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Typography ------------------------------------- */
+.brand-font {
+  font-family: 'Bangers';
+  color: #1e0d00;
+  -webkit-text-stroke: 1px #ff041c;
 }

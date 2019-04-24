@@ -53,13 +53,13 @@ class Signup extends Component {
 
   render (){
     return (
-      <div className="Signup">
+      <div className="Auth">
         <h3>Create a new account:</h3>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleNameChange} value={this.state.name} type="text" name="name" placeholder="Your name..." /><br/>
-          <input onChange={this.handleEmailChange} value={this.state.email} type="email" name="email" placeholder="Your email..." /><br/>
-          <input onChange={this.handlePasswordChange} value={this.state.password} type="password" name="password" placeholder="Choose a password..." /><br/>
-          <input type="submit" value="Sign up!" />
+        <form className="auth-form" onSubmit={this.handleSubmit}>
+          <div className="form-control"><input onChange={this.handleNameChange} value={this.state.name} type="text" name="name" placeholder="Your name..." /></div><br/>
+          <div className="form-control"><input onChange={this.handleEmailChange} value={this.state.email} type="email" name="email" placeholder="Your email..." /></div><br/>
+          <div className="form-control"><input onChange={this.handlePasswordChange} value={this.state.password} type="password" name="password" placeholder="Choose a password..." /></div><br/>
+          <div className="form-actions"><input type="submit" className="submit-btn" value="Sign up!" /></div>
         </form>
       </div>
     )

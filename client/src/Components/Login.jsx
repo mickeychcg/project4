@@ -47,12 +47,12 @@ class Login extends Component {
   
   render (){
     return (
-      <div className="Login">
+      <div className="Auth">
         <h3>Log into your account:</h3>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.handleEmailChange} value={this.state.email} type="email" name="email" placeholder="Enter your email..." /><br/>
-          <input onChange={this.handlePasswordChange} value={this.state.password} type="password" name="password" placeholder="Enter your password..." /><br/>
-          <input type="submit" value="Log In!" />
+        <form className="auth-form" onSubmit={this.handleSubmit}>
+          <div className="form-control"><input onChange={this.handleEmailChange} value={this.state.email} type="email" name="email" placeholder="Enter your email..." /></div><br/>
+          <div className="form-control"><input onChange={this.handlePasswordChange} value={this.state.password} type="password" name="password" placeholder="Enter your password..." /></div><br/>
+          <div className="form-actions"><input type="submit" className="submit-btn" value="Log In!" /></div>
         </form>
       </div>
     )

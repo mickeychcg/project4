@@ -1,0 +1,257 @@
+/*
+COLORS
+#ffd508
+#00FF48
+#1e0d00
+#FF7400
+#213918
+#ff041c
+*/
+
+/* Header ----------------------------------------- */
+.Header {
+  height: 10vh;
+  background-image: linear-gradient(155deg, #ffd508, #ff7400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  color: #1e0d00;
+}
+
+.Header h1 {
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+  font-size: 2.8rem;
+}
+
+.Header a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Menu Bar --------------------------------------- */
+.MenuBar {
+  background-image: linear-gradient(155deg, #ffd508, #ff7400);
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.MenuBar a {
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 7px;
+  transition: ease-in 300ms;
+}
+
+.MenuBar svg {
+  width: 32px;
+  height: 32px;
+}
+
+.MenuBar svg path {
+  fill: #ffffff;
+}
+/* TODO nav active (maybe a round white border) */
+
+.MenuBar a.active {
+  background-color: #ffffff;
+}
+.MenuBar a.active > svg path {
+  fill: #5f3193;
+}
+
+/* Auth Form --------------------------------------- */
+.Auth {
+  height: 27vh;
+  padding: 10px 0;
+}
+
+.Auth .auth-form {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  height: 93%;
+}
+
+.Auth h3 {
+  margin: 0 0 5px;
+}
+
+.Auth .form-control input {
+  font-size: 1rem;
+  width: 10%;
+  height: 30px;
+  margin: 0 auto 10px;
+  padding: 5px 10px;
+  border: 0;
+  border-bottom: 2px solid #333333;
+  text-align: center;
+}
+
+.Auth .form-actions {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  width: 7%;
+  margin: 7px auto 0;
+}
+.Auth .form-actions small {
+  margin: 8px;
+}
+
+.Auth .form-actions button {
+  width: 7%;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Auth .submit-btn {
+  font-size: 1rem;
+  border: 0;
+  border-radius: 5px;
+  background-image: linear-gradient(155deg, #ffd508, #FF7400);
+  color: #1e0d00;
+  letter-spacing: 1px;
+  padding: 12px 0;
+}
+
+/* PersonForm --------------------------------------- */
+.PersonForm {
+  border-radius: 6px;
+  background-image: linear-gradient(155deg, #131fa4, #913d88 50%);
+  padding: 5px;
+  margin-bottom: 0.8rem;
+}
+
+.PersonForm .card-inner {
+  background: #ffffff;
+  border-radius: 3px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: stretch;
+  padding: 0 10px;
+
+  min-height: 90px;
+}
+
+.PersonForm h4,
+.PersonForm p {
+  margin: 0;
+}
+
+.PersonForm .date-box {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+
+  font-weight: 900;
+  font-size: 1.3rem;
+}
+
+.PersonForm .info-box {
+  width: 70%;
+  text-align: left;
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.PersonForm .info-box p {
+  font-size: 0.9rem;
+  color: #333333;
+}
+
+.PersonForm .save-box {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Quotes Card --------------------------------------- */
+.QuotesCard {
+  border-radius: 6px;
+  background-image: linear-gradient(155deg, #131fa4, #913d88 50%);
+  padding: 5px;
+  margin-bottom: 0.8rem;
+}
+
+.QuotesCard h3,
+.QuotesCard h4 {
+  margin: 0;
+}
+
+.QuotesCard .card-inner {
+  background: #ffffff;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+
+  min-height: 90px;
+}
+
+/* Loading Icons --------------------------------------- */
+.LoadEvents,
+.LoadArtists {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.LoadEvents .inner {
+  height: 170px;
+  animation: tilting 1s infinite;
+  transform-origin: 40% 50%;
+}
+
+.LoadArtists .inner {
+  height: 220px;
+  animation: tilting 1s infinite;
+  transform-origin: 0% 100%;
+}
+
+.LoadEvents svg {
+  height: 170px;
+  width: 170px;
+}
+
+.LoadArtists svg {
+  height: 220px;
+  width: 220px;
+}
+
+.Loading svg,
+.Loading path {
+  z-index: 100;
+}
+
+@keyframes tilting {
+  0% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
