@@ -10,10 +10,10 @@ import QuoteForm from './Components/QuoteForm';
 
 /* Pages -------------------------------------------- */
 import Persons from './Pages/Persons';
-import UserProfile from './Pages/UserProfile';
+import UserProfile from './Components/UserProfile';
 import Landing from './Pages/Landing';
 import Quotes from './Pages/Quotes';
-import PersonContainer from './Pages/PersonContainer';
+import PersonContainer from './Components/PersonContainer';
 
 /* Third-party -------------------------------------------- */
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -88,7 +88,6 @@ class App extends Component {
     }
   }
   
-  
   componentDidMount() {
     this.checkForLocalToken()
     this.getPersons()
@@ -162,25 +161,26 @@ class App extends Component {
         <div>
           <Header />
             <Switch>
-            {this.state.token && (
-              <Redirect from='/' to='/landing' exact />
-              )}
-              <Route exact path='/landing' component={Landing} />
-              <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} addPerson={this.addPerson} /> } />
-              {/* <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
-              <Route exact path='/persons/' render={() => ( <PersonForm addPerson={this.addPerson} /> )} /> */}
+
+              {/* {this.state.token && 
+              <Route exact path='/' render={() => <Landing  user={user} logout={this.logout} /> } /> } */}
+              <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
+              {/* <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} /> } /> */}
+
+              {/* {this.state.token && ( <Redirect from='/landing' to='/' exact /> ) }  */}
+              {/* <Route exact path='/' component={UserProfile} /> */}
+              {/* <Route exact path='/persons/' render={() => ( <PersonForm addPerson={this.addPerson} /> )} /> } */}
             {/* <Route exact path='/persons' component={Persons} /> */}
             {/* <Persons persons={this.state.persons} user={this.state.user} logout={this.logout} /> */}
             {/* <PersonForm addPerson={this.addPerson} /> */}
             {/* <Route path="/persons/:pid" render={(props) => <Persons person={this.state.persons} addItem={this.addItem} user={user} logout={this.logout} {...props} />}/> */}
             {/* <Route exact path='/' render={() => <AddPerson />}/> */}
-            {/* <UserProfile user={user} logout={this.logout} /> */}s
             {/* <Persons judgees={this.state.persons} getPersons={this.getPersons} /> */}
               {/* <p><a onClick={this.handleClick}>Test the protected route...</a></p> */}
               {/* <p>{this.state.lockedResult}</p> */}
               {/* {this.state.token && (
-              <Route path='/profile' component={UserProfile} />
-              )}
+                <Route path='/profile' component={UserProfile} />
+                )}
               {!this.state.token && <Redirect to='/' exact />} */}
 
             </Switch>
@@ -189,15 +189,17 @@ class App extends Component {
       // console.log("THIS IS ADDPERSON", this.state.addPerson);
       // console.log("HERE IS USER!", this.state.user);
       // console.log("HERE IS PERSON!", this.state.persons);
+      console.log("What's the token?", this.state.token)
     } else {
       contents = (
-        <div>
+        <div className="App">
           <Header />
           <div className="auth">
             <Login liftToken={this.liftTokenToState} />
             <Signup liftToken={this.liftTokenToState} />
           
           </div>
+
         </div>
       )
     }

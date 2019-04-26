@@ -4,7 +4,7 @@ const UserProfile = props => {
   return (
     <div className='UserProfile'>
       <p>Hello, {props.user ? props.user.name : ''}</p>
-      <button onClick={props.logout}>Log Out!</button>
+      <button className='logout-btn' onClick={props.logout}>Log Out!</button>
     </div>
   )
 }

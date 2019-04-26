@@ -55,7 +55,7 @@ class Signup extends Component {
     return (
       <div className="Auth">
         <h3>Create a new account:</h3>
-        <form className="auth-form" onSubmit={this.handleSubmit}>
+        <form className="auth-form-right" onSubmit={this.handleSubmit}>
           <div className="form-control"><input onChange={this.handleNameChange} value={this.state.name} type="text" name="name" placeholder="Your name..." /></div><br/>
           <div className="form-control"><input onChange={this.handleEmailChange} value={this.state.email} type="email" name="email" placeholder="Your email..." /></div><br/>
           <div className="form-control"><input onChange={this.handlePasswordChange} value={this.state.password} type="password" name="password" placeholder="Choose a password..." /></div><br/>

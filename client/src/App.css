@@ -20,7 +20,6 @@
   flex-direction: column;
 
   font-family: 'Martel', serif;
-  background-color: #dddddd;
 
 }
 
@@ -37,7 +36,7 @@
 
 .Content {
   display: block;
-  height: 82vh;
+  height: 100vh;
   overflow-y: hidden;
 }
 
