@@ -6,7 +6,7 @@ class Quotes extends Component {
     this.props.getQuotes()
   }
   render() {
-    // get persons for logged in user
+    // get quotes for logged in user
     const remarks = this.props.remarks.map( (remark, i) => {
       return <p key={i}><Link to={remark}>{remark.name}</Link></p>
     })

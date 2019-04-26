@@ -39,7 +39,7 @@ class App extends Component {
     this.logout = this.logout.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.addPerson = this.addPerson.bind(this)
-    // this.addQuote = this.addQuote.bind(this)
+    this.addQuote = this.addQuote.bind(this)
     this.getPersons = this.getPersons.bind(this)
   }
 
@@ -88,6 +88,21 @@ class App extends Component {
     }
   }
   
+  getQuotes = () => {
+    if (this.state.user) {
+      axios.get(`/api/user/${this.state.user._id}/persons/${this.state.person._id}/quotes`)
+      .then(res => {
+        this.setState({
+          quotes: res.data
+        })
+      })
+    } else {
+      this.setState({
+        persons: []
+      })
+    }
+  }
+
   componentDidMount() {
     this.checkForLocalToken()
     this.getPersons()
@@ -138,7 +153,7 @@ class App extends Component {
       })
     })
   }
-
+  
   addQuote(e) {
     e.persist()
     e.preventDefault()
@@ -160,19 +175,21 @@ class App extends Component {
       contents = (
         <div>
           <Header />
-            <Switch>
+            <Router>
 
-              {/* {this.state.token && 
-              <Route exact path='/' render={() => <Landing  user={user} logout={this.logout} /> } /> } */}
-              <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
-              {/* <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} /> } /> */}
+              {/* <Route exact path='/' render={() => <PersonContainer persons={this.state.persons}  user={user} logout={this.logout} /> } /> */}
+              {/* <Route exact path='/persons' component={Persons} /> */}
+              <Route exact path='/persons' render={() => <Persons judgees={this.state.persons} getPersons={this.getPersons} /> } />
+              {/* <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
+              <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} /> } /> */}
 
               {/* {this.state.token && ( <Redirect from='/landing' to='/' exact /> ) }  */}
-              {/* <Route exact path='/' component={UserProfile} /> */}
+              <Route exact path='/userprofile' Component={UserProfile} />
               {/* <Route exact path='/persons/' render={() => ( <PersonForm addPerson={this.addPerson} /> )} /> } */}
             {/* <Route exact path='/persons' component={Persons} /> */}
             {/* <Persons persons={this.state.persons} user={this.state.user} logout={this.logout} /> */}
-            {/* <PersonForm addPerson={this.addPerson} /> */}
+            <PersonForm addPerson={this.addPerson} />
+            <QuoteForm addQuote={this.addQuote} />
             {/* <Route path="/persons/:pid" render={(props) => <Persons person={this.state.persons} addItem={this.addItem} user={user} logout={this.logout} {...props} />}/> */}
             {/* <Route exact path='/' render={() => <AddPerson />}/> */}
             {/* <Persons judgees={this.state.persons} getPersons={this.getPersons} /> */}
@@ -183,7 +200,7 @@ class App extends Component {
                 )}
               {!this.state.token && <Redirect to='/' exact />} */}
 
-            </Switch>
+            </Router>
         </div>
       )
       // console.log("THIS IS ADDPERSON", this.state.addPerson);

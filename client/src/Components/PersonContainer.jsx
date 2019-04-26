@@ -9,9 +9,9 @@ const PersonContainer = (props) => {
     <p>I AM THE PERSON CONTAINER!!!!!!!! RAWR</p>
     <div className="Persons">
       <Persons judgees={props.judgees} getPerson={props.getPersons} />
-    <PersonForm addPerson={props.addPerson} />
+      <PersonForm addPerson={props.addPerson} />
     </div>
-    <UserProfile user={props.user} logout={props.logout} />
+      <UserProfile user={props.user} logout={props.logout} />
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as Link, NavLink } from "react-router-dom";
 import UserProfile from '../Components/UserProfile';
 
 class Persons extends Component {
@@ -9,7 +9,7 @@ class Persons extends Component {
   render() {
     // get persons for logged in user
     const judgees = this.props.judgees.map( (judgee, i) => {
-      return <p key={i}><Link to= {judgee}>{judgee.name}</Link></p>
+      return <p key={i}><NavLink to={judgee}>{judgee.name}</NavLink></p>
     })
     return (
       
