@@ -132,37 +132,39 @@ router.delete('/persons/:pid/quotes/:id', (req, res) => {
 // POST /persons/:id/quotes - create and associate a quote to a person
 router.post('/user/:id/persons/:pid/quotes', (req, res) => {
   Person.findById(req.params.pid, (err, person) => {
+    console.log("this is the err:", err)
+    console.log("this is the person:", person)
     // console.log("This should be req.body.quote", req.body.quote)
     let quote = new Quote( {
-    quote: req.body.quote
-  })
-  quote.save((err, doc) => {
-    person.quotes.push(quote)
-    person.save((err,doc) => {
-      let catQuote;
-      if (person.quotes === quote.quote._id) {
-      }
-      // let catQuote = quote.quote
-      console.log(person.quote)
-//watson logic
-  if(person.quotes.length > 0 ) {
-    let profileParams = {
-      content: (catQuote),
-      content_type:  'plain/text',
-      raw_scores: true
-    }
-    personalityInsights.profile(profileParams, (err, profile)=>{
-      // console.log(profile)
+      quote: req.body.quote
     })
-  };
-    res.status(201).json({quotes:person.quotes}); 
-    })
-  })
-    Quote.find({}, (err, quotes) => {
-      let personalityInsights = new PersonalityInsightsV3 ({
-        version: '2017-10-13',
-        iam_apikey: process.env.IAM_APIKEY,
-        url: "https://gateway.watsonplatform.net/personality-insights/api"
+    quote.save((err, doc) => {
+      person.quotes.push(doc)
+      person.save((err,doc) => {
+        let catQuote = ''
+        if (person.quotes === quote.quote._id) {
+        }
+        // let catQuote = quote.quote
+        console.log(person.quotes)
+        //watson logic
+        if(person.quotes.length > 0 ) {
+          let profileParams = {
+            content: catQuote,
+            content_type:  'plain/text',
+            raw_scores: true
+          }
+          personalityInsights.profile(profileParams, (err, profile)=>{
+            // console.log(profile)
+          })
+        };
+        res.status(201).json({quotes:person.quotes}); 
+      })
+      Quote.find({}, (err, quotes) => {
+        let personalityInsights = new PersonalityInsightsV3 ({
+          version: '2017-10-13',
+          iam_apikey: process.env.IAM_APIKEY,
+          url: "https://gateway.watsonplatform.net/personality-insights/api"
+        })
       })
     })
   })
