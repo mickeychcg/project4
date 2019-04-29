@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
+import { BrowserRouter as NavLink } from "react-router-dom";
 
 class Quotes extends Component {
   componentDidMount() {
@@ -7,16 +7,17 @@ class Quotes extends Component {
   }
   render() {
     // get quotes for logged in user
-    const remarks = this.props.remarks.map( (remark, i) => {
-      return <p key={i}><Link to={remark}>{remark.name}</Link></p>
+    const quotes = this.props.quotes.map( (quote, i) => {
+      return <p key={i}><NavLink to={() => {this.props.getPersons(quote._id)}} > {quote} </NavLink> </p>
     })
     return (
       
       <div>
         <h1>Your Remarks:</h1>
-          {remarks}
+          {quotes}
       </div>
-  )}
+    )
+  }
 }
   
 export default Quotes;

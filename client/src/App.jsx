@@ -21,6 +21,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
+import ShowPersonQuotes from './Pages/ShowPersonQuotes';
 
 class App extends Component {
   constructor(props) {
@@ -31,8 +32,7 @@ class App extends Component {
       errorMessage: '',
       lockedResult: '',
       persons: [],
-      personality: [],
-      quotes: []
+      selectedPerson: null
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
@@ -41,6 +41,13 @@ class App extends Component {
     this.addPerson = this.addPerson.bind(this)
     this.addQuote = this.addQuote.bind(this)
     this.getPersons = this.getPersons.bind(this)
+    this.selectJudgee = this.selectJudgee.bind(this)
+  }
+
+  selectJudgee(judgee) {
+    this.setState({
+        selectedPerson: judgee
+    })
   }
 
   checkForLocalToken() {
@@ -88,20 +95,20 @@ class App extends Component {
     }
   }
   
-  getQuotes = () => {
-    if (this.state.user) {
-      axios.get(`/api/user/${this.state.user._id}/persons/${this.state.person._id}/quotes`)
-      .then(res => {
-        this.setState({
-          quotes: res.data
-        })
-      })
-    } else {
-      this.setState({
-        persons: []
-      })
-    }
-  }
+  // getQuotes = () => {
+  //   if (this.state.user) {
+  //     axios.get(`/api/user/${this.state.user._id}/persons/${this.state.persons._id}/quotes`)
+  //     .then(res => {
+  //       this.setState({
+  //         quotes: res.data
+  //       })
+  //     })
+  //   } else {
+  //     this.setState({
+  //       persons: []
+  //     })
+  //   }
+  // }
 
   componentDidMount() {
     this.checkForLocalToken()
@@ -158,12 +165,12 @@ class App extends Component {
     e.persist()
     e.preventDefault()
     let userId = this.state.user._id
-    let personId = this.state.person._id
+    let personId = this.state.selectedPerson._id
     axios.post(`/api/user/${userId}/persons/${personId}/quotes`, {
-      name: e.target.name.value
+      quote: e.target.quote.value
     }).then(res => {
-      axios.get(`/api/user/${userId}/persons/${personId}/quotes`).then(res => {
-        this.setState({quotes: res.data})
+      axios.get(`/api/persons/${personId}`).then(res => {
+        this.setState({selectedPerson: res.data})
       })
     })
   }
@@ -179,10 +186,10 @@ class App extends Component {
 
               {/* <Route exact path='/' render={() => <PersonContainer persons={this.state.persons}  user={user} logout={this.logout} /> } /> */}
               {/* <Route exact path='/persons' component={Persons} /> */}
-              <Route exact path='/persons' render={() => <Persons judgees={this.state.persons} getPersons={this.getPersons} /> } />
+              <Route exact path='/persons' render={() => <Persons selectJudgee={this.selectJudgee} judgees={this.state.persons} getPersons={this.getPersons} /> } />
               {/* <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
               <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} /> } /> */}
-
+              <Route exact path='/persons/:pid' render={(props) => <ShowPersonQuotes {...props} person={this.state.selectedPerson} />} />
               {/* {this.state.token && ( <Redirect from='/landing' to='/' exact /> ) }  */}
               <Route exact path='/userprofile' Component={UserProfile} />
               {/* <Route exact path='/persons/' render={() => ( <PersonForm addPerson={this.addPerson} /> )} /> } */}
