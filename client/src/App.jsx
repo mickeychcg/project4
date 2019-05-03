@@ -4,16 +4,18 @@ import './App.css';
 /* Components -------------------------------------------- */
 import Signup from './Components/Signup';
 import Login from './Components/Login';
-import PersonForm from './Components/PersonForm';
+import SpeakerForm from './Components/SpeakerForm';
 import Header from './Components/Header';
 import QuoteForm from './Components/QuoteForm';
+import SelectedSpeaker from './Components/SelectedSpeaker';
 
 /* Pages -------------------------------------------- */
-import Persons from './Pages/Persons';
+// import Speakers from './Pages/Speakers';
 import UserProfile from './Components/UserProfile';
 import Landing from './Pages/Landing';
 import Quotes from './Pages/Quotes';
-import PersonContainer from './Components/PersonContainer';
+import SpeakerContainer from './Components/SpeakerContainer';
+import SpeakersNew from './Pages/SpeakersNew';
 
 /* Third-party -------------------------------------------- */
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -21,7 +23,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
-import ShowPersonQuotes from './Pages/ShowPersonQuotes';
+import ShowSpeakerQuotes from './Pages/ShowSpeakerQuotes';
 
 class App extends Component {
   constructor(props) {
@@ -31,25 +33,28 @@ class App extends Component {
       user: null,
       errorMessage: '',
       lockedResult: '',
-      persons: [],
-      selectedPerson: null
+      speakers: [],
+      selectedSpeaker: null,
     }
     this.liftTokenToState = this.liftTokenToState.bind(this)
     this.checkForLocalToken = this.checkForLocalToken.bind(this)
     this.logout = this.logout.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.addPerson = this.addPerson.bind(this)
+    this.addSpeaker = this.addSpeaker.bind(this)
     this.addQuote = this.addQuote.bind(this)
-    this.getPersons = this.getPersons.bind(this)
-    this.selectJudgee = this.selectJudgee.bind(this)
+    this.getSpeakers = this.getSpeakers.bind(this)
+    this.getQuote = this.getQuote.bind(this)
+    // this.selectSpeaker = this.selectSpeaker.bind(this)
   }
 
-  selectJudgee(judgee) {
-    this.setState({
-        selectedPerson: judgee
-    })
+  /* State rerender ----------------------------------*/
+  componentDidMount() {
+    this.checkForLocalToken()
+    // this.getSpeakers()
+    // this.selectSpeaker()
   }
-
+  
+  /*AUTH ---------------------------------------------------*/  
   checkForLocalToken() {
     // Look in localStorage for the token
     let token = localStorage.getItem('mernToken')
@@ -80,48 +85,14 @@ class App extends Component {
     }
   }
   
-  getPersons = () => {
-    if (this.state.user) {
-      axios.get(`/api/user/${this.state.user._id}/persons`)
-      .then(res => {
-        this.setState({
-          persons: res.data
-        })
-      })
-    } else {
-      this.setState({
-        persons: []
-      })
-    }
-  }
-  
-  // getQuotes = () => {
-  //   if (this.state.user) {
-  //     axios.get(`/api/user/${this.state.user._id}/persons/${this.state.persons._id}/quotes`)
-  //     .then(res => {
-  //       this.setState({
-  //         quotes: res.data
-  //       })
-  //     })
-  //   } else {
-  //     this.setState({
-  //       persons: []
-  //     })
-  //   }
-  // }
-
-  componentDidMount() {
-    this.checkForLocalToken()
-    this.getPersons()
-  }
-
   liftTokenToState({token, user}) {
     this.setState({
       token,
       user
     })
   }
-
+  
+  
   logout(){
     // Remove the token from localStorage
     localStorage.removeItem ('mernToken')
@@ -131,6 +102,41 @@ class App extends Component {
       user: null
     })
   }
+  
+  
+  /* Sets State ---------------------------------------*/
+  
+  getSpeakers = () => {
+    if (this.state.user) {
+      axios.get(`/api/user/${this.state.user._id}/speakers`)
+      .then(res => {
+        this.setState({
+          speakers: res.data
+        })
+      })
+    } else {
+      this.setState({
+        speakers: []
+      })
+    }
+  }
+
+  getQuote = () => {
+    if (this.state.user) {
+      axios.get (`api/user/${this.state.user._id}/speakers/${this.state.selectedSpeaker._id}/quotes`)
+      .then(res => {
+        this.setState({
+          selectedQuotes: res.data
+        })
+      })
+    } else {
+      this.setState({
+        selectedQuotes: []
+      })
+    }
+  }
+  
+  /* Handler functions ---------------------------------*/
 
   handleClick(e) {
     e.preventDefault()
@@ -148,15 +154,15 @@ class App extends Component {
     })
   }
 
-  addPerson(e) {
+addSpeaker(e) {
     e.persist()
     e.preventDefault()
     let userId = this.state.user._id
-    axios.post(`/api/user/${userId}/persons`, {
+    axios.post(`/api/user/${userId}/speakers`, {
       name: e.target.name.value
     }).then(res => {
-      axios.get(`/api/user/${userId}/persons`).then(res => {
-        this.setState({persons: res.data})
+      axios.get(`/api/user/${userId}/speakers`).then(res => {
+        this.setState({speakers: res.data})
       })
     })
   }
@@ -165,16 +171,16 @@ class App extends Component {
     e.persist()
     e.preventDefault()
     let userId = this.state.user._id
-    let personId = this.state.selectedPerson._id
-    axios.post(`/api/user/${userId}/persons/${personId}/quotes`, {
+    let speakerId = this.state.selectedSpeaker._id
+    axios.post(`/api/user/${userId}/speakers/${speakerId}/quotes`, {
       quote: e.target.quote.value
     }).then(res => {
-      axios.get(`/api/persons/${personId}`).then(res => {
-        this.setState({selectedPerson: res.data})
+      axios.get(`/api/speakers/${speakerId}`).then(res => {
+        this.setState({selectedSpeaker: res.data})
       })
     })
   }
-
+  /* Render --------------------------------------------------*/
   render() {
     let user = this.state.user
     let contents;
@@ -183,23 +189,24 @@ class App extends Component {
         <div>
           <Header />
             <Router>
-
-              {/* <Route exact path='/' render={() => <PersonContainer persons={this.state.persons}  user={user} logout={this.logout} /> } /> */}
-              {/* <Route exact path='/persons' component={Persons} /> */}
-              <Route exact path='/persons' render={() => <Persons selectJudgee={this.selectJudgee} judgees={this.state.persons} getPersons={this.getPersons} /> } />
-              {/* <Route exact path='/persons' render={() => ( <Persons judgees={this.state.persons} getPersons={this.getPersons} logout={this.logout} /> )} />
-              <Route exact path='/persons' render={() => <PersonContainer judgees={this.state.persons} /> } /> */}
-              <Route exact path='/persons/:pid' render={(props) => <ShowPersonQuotes {...props} person={this.state.selectedPerson} />} />
+              {/* <Route exact path='/' render={() => <SpeakerContainer speakers={this.state.speakers}  user={user} logout={this.logout} /> } /> */}
+              {/* <Route exact path='/speakers' component={Speakers} /> */}
+              {/* <Route exact path='/speakers' render={() => <Speakers selectSpeaker={this.state.selectSpeaker} speakers={this.state.speakers} getSpeakers={this.getSpeakers} /> } /> */}
+              <Route exact path='/speakers' render={() => <SpeakersNew selectSpeaker={this.state.selectSpeaker} speakers={this.state.speakers} getSpeakers={this.getSpeakers} /> } />
+              {/* <Route exact path='/speakers' render={() => ( <Speakers speakers={this.state.speakers} getSpeakers={this.getSpeakers} logout={this.logout} /> )} />
+              <Route exact path='/speakers' render={() => <SpeakerContainer speakers={this.state.speakers} /> } /> */}
+              <Route exact path='/speakers/:pid' render={(props) => <ShowSpeakerQuotes {...props} speaker={this.state.selectedSpeaker} />} />
               {/* {this.state.token && ( <Redirect from='/landing' to='/' exact /> ) }  */}
               <Route exact path='/userprofile' Component={UserProfile} />
-              {/* <Route exact path='/persons/' render={() => ( <PersonForm addPerson={this.addPerson} /> )} /> } */}
-            {/* <Route exact path='/persons' component={Persons} /> */}
-            {/* <Persons persons={this.state.persons} user={this.state.user} logout={this.logout} /> */}
-            <PersonForm addPerson={this.addPerson} />
+              {/* <Route exact path='/speakers/' render={() => ( <SpeakerForm addSpeaker={this.addSpeaker} /> )} /> } */}
+            {/* <Route exact path='/speakers' component={Speakers} /> */}
+            {/* <Speakers speakers={this.state.speakers} user={this.state.user} logout={this.logout} /> */}
+            {/* <SelectedSpeaker selectedSpeaker={this.state.selectedSpeaker} /> */}
+            <SpeakerForm addSpeaker={this.addSpeaker} />
             <QuoteForm addQuote={this.addQuote} />
-            {/* <Route path="/persons/:pid" render={(props) => <Persons person={this.state.persons} addItem={this.addItem} user={user} logout={this.logout} {...props} />}/> */}
-            {/* <Route exact path='/' render={() => <AddPerson />}/> */}
-            {/* <Persons judgees={this.state.persons} getPersons={this.getPersons} /> */}
+            {/* <Route path="/speakers/:pid" render={(props) => <Speakers speaker={this.state.speakers} addItem={this.addItem} user={user} logout={this.logout} {...props} />}/> */}
+            {/* <Route exact path='/' render={() => <AddSpeaker />}/> */}
+            {/* <Speakers speakers={this.state.speakers} getSpeakers={this.getSpeakers} /> */}
               {/* <p><a onClick={this.handleClick}>Test the protected route...</a></p> */}
               {/* <p>{this.state.lockedResult}</p> */}
               {/* {this.state.token && (
@@ -210,9 +217,10 @@ class App extends Component {
             </Router>
         </div>
       )
-      // console.log("THIS IS ADDPERSON", this.state.addPerson);
-      // console.log("HERE IS USER!", this.state.user);
-      // console.log("HERE IS PERSON!", this.state.persons);
+      console.log("Who is the selected speaker?", this.state.selectedSpeaker)
+      console.log("THIS IS ADDSPEAKER", this.state.addSpeaker);
+      console.log("HERE IS USER!", this.state.user);
+      console.log("HERE IS SPEAKER!", this.state.speakers);
       console.log("What's the token?", this.state.token)
     } else {
       contents = (

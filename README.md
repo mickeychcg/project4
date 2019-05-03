@@ -20,6 +20,7 @@ License and author info
 ## Code Style
 
 ## Screenshots
+![ERD Mongoose Model](info/JudgeOMaticERD.png)
 
 ## Tech Framework
 Built with:

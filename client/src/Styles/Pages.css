@@ -65,14 +65,14 @@ COLORS
   padding: 12px 0;
 }
 
-/* Person Page && Quote Page ----------------------------------------- */
-.Persons,
+/* Speaker Page && Quote Page ----------------------------------------- */
+.Speakers,
 .Quotes {
   height: 82vh;
   overflow: hidden;
 }
 
-.Persons header,
+.Speakers header,
 .Quotes header {
   height: 40px;
   display: flex;
@@ -82,7 +82,7 @@ COLORS
   background-color: #dddddd;
 }
 
-.Persons header input,
+.Speakers header input,
 .Quotes header input {
   width: 70%;
   height: 32px;
@@ -92,7 +92,7 @@ COLORS
   border-radius: 5px 0 0 5px;
 }
 
-.Persons header button,
+.Speakers header button,
 .Quotes header button {
   height: 32px;
   width: 30%;
@@ -104,7 +104,7 @@ COLORS
   font-weight: 700;
 }
 
-.Persons .events-filters,
+.Speakers .events-filters,
 .Quotes .artists-filters {
   display: flex;
   justify-content: space-evenly;
@@ -114,7 +114,7 @@ COLORS
   border-bottom: #dddddd;
 }
 
-.Persons .events-filters .filter,
+.Speakers .events-filters .filter,
 .Quotes .artists-filters .filter {
   flex-grow: 1;
   display: flex;
@@ -128,14 +128,14 @@ COLORS
   padding-top: 7px;
 }
 
-.Persons .events-filters .filter.active,
+.Speakers .events-filters .filter.active,
 .Quotes .artists-filters .filter.active {
   border-top: 7px solid #5f3193;
   border-bottom: 0;
   padding-top: 0;
 }
 
-.Persons .events-count,
+.Speakers .events-count,
 .Quotes .artists-count {
   display: inline-block;
   background-color: #dddddd;
@@ -146,7 +146,7 @@ COLORS
   font-size: 0.9rem;
 }
 
-.Persons .events-collection,
+.Speakers .events-collection,
 .Quotes .artists-collection {
   background-color: #ffffff;
   padding: 10px 20px 0;

@@ -142,15 +142,15 @@ COLORS
   padding: 12px 0;
 }
 
-/* PersonForm --------------------------------------- */
-.PersonForm {
+/* SpeakerForm --------------------------------------- */
+.SpeakerForm {
   border-radius: 6px;
   background-image: linear-gradient(155deg, #131fa4, #913d88 50%);
   padding: 5px;
   margin-bottom: 0.8rem;
 }
 
-.PersonForm .card-inner {
+.SpeakerForm .card-inner {
   background: #ffffff;
   border-radius: 3px;
   display: flex;
@@ -162,12 +162,12 @@ COLORS
   min-height: 90px;
 }
 
-.PersonForm h4,
-.PersonForm p {
+.SpeakerForm h4,
+.SpeakerForm p {
   margin: 0;
 }
 
-.PersonForm .date-box {
+.SpeakerForm .date-box {
   width: 15%;
   display: flex;
   flex-direction: column;
@@ -178,7 +178,7 @@ COLORS
   font-size: 1.3rem;
 }
 
-.PersonForm .info-box {
+.SpeakerForm .info-box {
   width: 70%;
   text-align: left;
   padding: 0.5rem 0;
@@ -187,12 +187,12 @@ COLORS
   justify-content: center;
 }
 
-.PersonForm .info-box p {
+.SpeakerForm .info-box p {
   font-size: 0.9rem;
   color: #333333;
 }
 
-.PersonForm .save-box {
+.SpeakerForm .save-box {
   width: 10%;
   display: flex;
   justify-content: center;

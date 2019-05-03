@@ -8,7 +8,7 @@ class Quotes extends Component {
   render() {
     // get quotes for logged in user
     const quotes = this.props.quotes.map( (quote, i) => {
-      return <p key={i}><NavLink to={() => {this.props.getPersons(quote._id)}} > {quote} </NavLink> </p>
+      return <p key={i}><NavLink to={() => {this.props.getSpeakers(quote._id)}} > {quote} </NavLink> </p>
     })
     return (
       

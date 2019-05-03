@@ -1,8 +1,8 @@
 import React from 'react';
 import UserProfile from '../Components/UserProfile';
 import Login from '../Components/Login';
-import PersonContainer from '../Components/PersonContainer';
-import Persons from './Persons';
+import SpeakerContainer from '../Components/SpeakerContainer';
+import Speakers from './Speakers';
 // import { PromiseProvider } from 'mongoose';
 
 const Home = (props) => {
@@ -13,7 +13,7 @@ const Home = (props) => {
         <h3>Go ahead. Be Judgey.</h3>
         <div className="loginSignup">
         
-      {/* <Persons judgees={props.judgees} getPersons={props.getPersons}/> */}
+      {/* <Speakers judgees={props.judgees} getSpeakers={props.getSpeakers}/> */}
       <UserProfile user={props.user} logout={props.logout} />
         </div>
       </section>

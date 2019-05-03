@@ -1,14 +1,14 @@
 import React  from 'react';
 
-const ShowPersonQuote = (props) => {
-  if(props.person) {
-    var name = props.person.name
-    var quoteLinks = props.person.quotes.map((quote, index) => {
+const ShowSpeakerQuote = (props) => {
+  if(props.speaker) {
+    var name = props.speaker.name
+    var quoteLinks = props.speaker.quotes.map((quote, index) => {
         return ( <p key={index}> {quote.quote} </p> )
     })   
   } else {
     var name = <p>See below...</p>
-    var quoteLinks = <p>No person selected</p>
+    var quoteLinks = <p>No speaker selected</p>
   }
   return (
     <div>
@@ -19,4 +19,4 @@ const ShowPersonQuote = (props) => {
   )
 }
 
-export default ShowPersonQuote;
+export default ShowSpeakerQuote;
