@@ -87,6 +87,7 @@ COLORS
 .loginSignup{
   display: flex;
   flex-direction: row;
+  position: absolute;
 }
 
 .Auth .auth-form {

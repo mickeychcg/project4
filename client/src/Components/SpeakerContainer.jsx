@@ -4,14 +4,15 @@ import SpeakerForm from './SpeakerForm';
 import UserProfile from './UserProfile';
 
 const SpeakerContainer = (props) => {
+  console.log("Where are the speakers", props.speakers)
   return (
     <>
-    <p>I AM THE PERSON CONTAINER!!!!!!!! RAWR</p>
+    <p>I AM THE SPEAKER CONTAINER!!!!!!!! RAWR</p>
     <div className="Speakers">
-      <Speakers judgees={props.judgees} getSpeaker={props.getSpeakers} />
       <SpeakerForm addSpeaker={props.addSpeaker} />
+      <Speakers speakers={props.speakers} />
+      {/* <UserProfile user={props.user} /> */}
     </div>
-      <UserProfile user={props.user} logout={props.logout} />
     </>
   )
 }
