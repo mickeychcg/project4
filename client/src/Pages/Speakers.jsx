@@ -7,7 +7,6 @@ class Speakers extends Component {
   constructor (props) {
     super (props)
     this.state = {
-      selectedSpeaker: null,
       selectedQuotes: '',
       speakers: []
     }

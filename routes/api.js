@@ -34,18 +34,18 @@ router.get('/user/:id/speakers', (req, res) => {
 // GET ONE speaker - /user/:id/speakers/:sid
 // ROUTE IS TESTED AND WORKING!
 router.get('/user/:id/speakers/:sid', (req, res) => {
-  User.findById(req.params.id).populate('speakers/:sid').exec( (err, user) => {
-    let speaker = user.speakers.find((speaker) => {
-      return speaker._id.toString() === req.params.sid
-    })
+  Speaker.findById(req.params.sid).populate('speakers/:sid').exec( (err, speaker) => {
+    // let speaker = user.speakers.find((speaker) => {
+    //   return speaker._id.toString() === req.params.sid
+    // })
     // console.log('did we make it here?')
     if (!err) {
-      console.log(speaker)
+      // console.log(speaker)
       res.status(200).json({ type: 'success', message: 'we found them', data: speaker} ) 
     } else {
       res.status(500).json( {type: 'error', message: 'error getting speaker'} )
     } 
-      res.json(user.speaker)
+      // res.json(speaker)
   })
 })
 
@@ -148,7 +148,7 @@ router.delete('/user/:id/speakers/:sid', (req, res) => {
 })
 
 // DEL /speakers/:id/quotes/:id - a quote from a speaker
-// ROUTE IS TESTED AND WORKING! 
+// ROUTE IS TESTED AND WORKING!
 router.delete('/user/:id/speakers/:sid/quotes/:qid', (req, res) => {
   Quote.findOneAndDelete({_id: req.params.qid}, (err, quote) => {
     Speaker.findById(req.params.sid, (err, speaker) => {

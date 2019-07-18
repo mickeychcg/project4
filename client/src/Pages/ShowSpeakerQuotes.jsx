@@ -5,8 +5,8 @@ import QuoteForm from '../Components/QuoteForm';
 const ShowSpeakerQuotes = (props) => {
   if(props.selectedSpeaker) {
     var name = props.selectedSpeaker.name
-    var quoteLinks = props.speaker.quotes.map((quote, index) => {
-      return ( <p key={index}> {props.speaker.name} {quote.quote} </p> )
+    var quoteLinks = props.speaker.quotes.map((quote, i) => {
+      return ( <p key={i}> {props.speaker.name} {quote.quote} </p> )
     })   
   } else {
     var name = <p>See below...</p>
@@ -25,3 +25,4 @@ const ShowSpeakerQuotes = (props) => {
 }
 
 export default ShowSpeakerQuotes;
+

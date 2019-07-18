@@ -21,8 +21,8 @@ import ShowSpeakerQuotes from './Pages/ShowSpeakerQuotes';
 import {  } from '@fortawesome/free-solid-svg-icons';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import axios from 'axios';
-import LogRocket from 'logrocket';
-LogRocket.init('svvfzp/project4');
+// import LogRocket from 'logrocket';
+// LogRocket.init('svvfzp/project4');
 
 class App extends Component {
   constructor(props) {
@@ -51,7 +51,7 @@ class App extends Component {
     console.log("component did mount");
     this.checkForLocalToken();
     // this.getSpeakers();
-    // this.selectedSpeaker()
+    this.getSelectedSpeaker();
   }
   
   /*AUTH ---------------------------------------------------*/  
@@ -127,7 +127,7 @@ class App extends Component {
   }
 
   getSelectedSpeaker() {
-    console.log("I'm getting the selected speaker right now", this.state.selectedSpeaker)
+    console.log("I'm GETTING the selected speaker right now", this.state.speaker)
     if (this.state.user) {
       axios.get(`/api/user/${this.state.user._id}/speakers/${this.state.speaker._id}`)
       .then(res => {
@@ -214,6 +214,7 @@ class App extends Component {
       })
     })
   }
+
   /* Render --------------------------------------------------*/
   render() {
     let loginCard
@@ -297,7 +298,7 @@ class App extends Component {
       )
       console.log("Who's the user?", this.state.user._id)
       console.log("Who's the selected speaker?", this.state.selectedSpeaker)
-      console.log("Are these the speakers you're looking for?", this.state.speakers)
+      console.log("Are these THE speakers you're looking for?", this.state.speakers)
       console.log("Are these the quotes you're looking for?", this.props.selectedQuotes)
     } else {
       contents = <div>{loginCard}</div>
