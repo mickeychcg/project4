@@ -71,6 +71,7 @@ router.post('/user/:id/speakers/:sid/quotes', (req, res) => {
   console.log('This is the POST addQuote route', req.body)
 
   Speaker.findById(req.params.sid, (err, speaker) => {
+    console.log(speaker.quotes);
       let newQuote = new Quote({
         quote: req.body.quote
       })
@@ -129,8 +130,8 @@ router.get('/user/:id/speakers/:sid/quotes', (req, res) => {
       console.log("we got an error")
       res.json(err);
     } else {
-      console.log("we didn't get an error")
-      res.json(quotes);
+      console.log("we didn't get an error");
+      res.json(quotes.quotes.map(q => ({content: q.quote, id: q._id})));
     }
   })
 })
