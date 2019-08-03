@@ -12,6 +12,7 @@ import '../App.css';
 
 function Home(props) {
   const userContext = useContext(UserContext);
+  console.log('Home');
 
   return (
     <div>
@@ -19,19 +20,14 @@ function Home(props) {
         <nav className='nav'>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
             <li><Link to="/speakers">Speakers</Link></li>
             {userContext.user &&
               <li><a onClick={userContext.logout}>Logout</a></li>
             }
           </ul>
         </nav>
-        <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/login" component={Login} />
           {userContext.user && <Route path="/speakers" component={Speakers} />}
-          <Route render={() => <div>404</div>} />
-        </Switch>
       </SpeakersContextProvider>
     </div>
   );

@@ -1,9 +1,6 @@
 import React, {Component, useState, useContext} from 'react';
 
 import UserContext from '../Contexts/UserContext';
-
-import axios from 'axios';
-
 function Login(props) {
   const userContext = useContext(UserContext);
 

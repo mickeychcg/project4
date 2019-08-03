@@ -21,7 +21,8 @@ function QuoteForm(props) {
 
   function DeleteQuote(props) {
     const userContext = useContext(UserContext);
-    const speakersContext = useContext(speakersContext);
+    // const speakersContext = useContext(SpeakersContext);
+    const quote = props.speaker.quote_id;
     const onSubmit = async () => {
       if (content.length > 0 ) {
         return fetch(`/api/user/${userContext.user._id}/speakers/${props.speaker._id}/quotes/${props.quote._id}`, {
@@ -30,12 +31,12 @@ function QuoteForm(props) {
           response.json().then(json => {
             return json;
           })
-      )}
-    }
-  }
-
-  return (
-    <div>
+          )}
+        }
+      }
+      
+      return (
+        <div>
       <div>
         <textarea
           name="quote"
@@ -68,7 +69,7 @@ function Speaker(props) {
     const json = await response.json();
     setQuotes(json);
   };
-
+  
   useEffect(() => {
     if (speaker) {
       fetchQuotes();
@@ -77,12 +78,12 @@ function Speaker(props) {
   
   return (
     <div>
-    <DeleteQuote type="submit" className="submit-btn" value="Log In!" />
       <h2>{speaker.name}</h2>
       <ul className='Speakers.ul'>
         {quotes.map(quote => {
           return (
-            <li key={quote.id}>{quote.content.slice(0, 100)}...</li>
+            <li key={quote.id}>
+            {quote.content.slice(0, 100)}...</li>
             );
           })}
       </ul>
