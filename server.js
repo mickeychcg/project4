@@ -1,5 +1,6 @@
 require ('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const expressJWT = require('express-jwt');
 const RateLimit = require('express-rate-limit');
@@ -10,6 +11,7 @@ const app = express();
 app.use (express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(helmet());
+app.use(cors());
 
 const loginLimiter = new RateLimit({
   windowMs: 5 * 60 * 1000, // 5 minutes
